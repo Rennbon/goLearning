@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  dbmysql:
+    image: mysql:latest 
+    container_name: go-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: qwe123456
+    ports:
+      - "3306:3306" 
