@@ -8,10 +8,9 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func LoadDB() (*gorm.DB, error) {
-	db, err := gorm.Open("mysql", "root:qwe123456@/godb?charset=utf8&parseTime=True&loc=Local")
-	defer db.Close()
-
+func OpenConnection() (*gorm.DB, error) {
+	db, err := gorm.Open("mysql", "root:qwe123456@/godb?charset=utf8&parseTime=True")
+	//defer db.Close()
 	if err != nil {
 		return nil, fmt.Errorf("fatal error config file: %s ", err)
 	}
