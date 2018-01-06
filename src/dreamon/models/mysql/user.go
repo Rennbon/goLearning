@@ -1,11 +1,14 @@
 package mysql
 
+import (
+	"github.com/jinzhu/gorm"
+)
+
 type User struct {
-	Id       int
-	Name     string
-	Gender   string
-	Phone    string
-	Email    string
-	Address  string
-	Password string
+	gorm.Model
+	Name     string `gorm:"size:255"`
+	Gender   bool
+	Email    string `gorm:"type:varchar(100);unique_index"`
+	Address  string `gorm:"size:255"`
+	Password string `gorm:"size:20"`
 }

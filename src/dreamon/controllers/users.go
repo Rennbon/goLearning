@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"dreamon/business"
 	"dreamon/controllers/msg_struct"
 	"net/http"
 
@@ -26,6 +27,7 @@ func RegisterHandler(c *gin.Context) {
 	var form Login
 	if err := c.ShouldBind(&form); err == nil {
 		if form.Mail == "Rennbon" && form.Password == "123" {
+			business.AddUser(form.Mail, form.Mail, form.Password)
 			c.JSON(http.StatusOK,
 				msg_struct.NewMsg(msg_struct.Success, "OK", "123"))
 		} else {
