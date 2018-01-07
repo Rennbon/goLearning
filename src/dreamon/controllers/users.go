@@ -11,7 +11,8 @@ import (
 func LoginHandler(c *gin.Context) {
 	var form Login
 	if err := c.ShouldBind(&form); err == nil {
-		if form.Mail == "Rennbon" && form.Password == "123" {
+		user := business.GetUser(form.Mail, form.Password)
+		if user.ID != 0 {
 			c.JSON(http.StatusOK,
 				msg_struct.NewMsg(msg_struct.Success, "OK", "123"))
 		} else {
@@ -26,14 +27,14 @@ func LoginHandler(c *gin.Context) {
 func RegisterHandler(c *gin.Context) {
 	var form Login
 	if err := c.ShouldBind(&form); err == nil {
-		if form.Mail == "Rennbon" && form.Password == "123" {
-			if business.AddUser(form.Mail, form.Mail, form.Password) {
-				c.JSON(http.StatusOK,
-					msg_struct.NewMsg(msg_struct.Success, "OK", "123"))
-			}
+		if business.AddUser(form.Mail, form.Mail, form.Password) {
+			c.JSON(http.StatusOK,
+				msg_struct.NewMsg(msg_struct.Success, "OK", "123"))
+
+		} else {
+			c.JSON(http.StatusOK,
+				msg_struct.NewMsg(msg_struct.Error, "账号已存在", "有多远滚多远"))
 		}
-		c.JSON(http.StatusOK,
-			msg_struct.NewMsg(msg_struct.Error, "傻逼滚", "有多远滚多远"))
 
 	} else {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

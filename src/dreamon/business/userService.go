@@ -19,10 +19,10 @@ func init() {
 		// }
 	}
 }
-func AddUser(name string, emial string, password string) bool {
+func AddUser(name string, mail string, password string) bool {
 	user := mysql.User{
 		Name:     name,
-		Email:    emial,
+		Email:    mail,
 		Password: password,
 	}
 	if !db.NewRecord(&user) {
@@ -34,4 +34,10 @@ func AddUser(name string, emial string, password string) bool {
 		return true
 	}
 	return false
+}
+
+func GetUser(mail string, password string) *mysql.User {
+	var user mysql.User
+	db.Where(&mysql.User{Email: mail, Password: password}).First(&user)
+	return &user
 }
