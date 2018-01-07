@@ -40,6 +40,21 @@ func RegisterHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 }
+func RemoveUserHandler(c *gin.Context) {
+	var form removeUser
+	if err := c.ShouldBind(&form); err == nil {
+		user := business.GetUser(form.Mail, form.Password)
+		if user.ID != 0 && business.RemoveUser(user) {
+			c.JSON(http.StatusOK,
+				msg_struct.NewMsg(msg_struct.Success, "OK", "123"))
+		} else {
+			c.JSON(http.StatusOK,
+				msg_struct.NewMsg(msg_struct.Error, "傻逼滚", "有多远滚多远"))
+		}
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+}
 
 //登录用实体
 type Login struct {
@@ -47,6 +62,10 @@ type Login struct {
 	Password string `form:"password"  binding:"required"`
 }
 type register struct {
+	Mail     string `form:"mail" binding:"required"`
+	Password string `form:"password"  binding:"required"`
+}
+type removeUser struct {
 	Mail     string `form:"mail" binding:"required"`
 	Password string `form:"password"  binding:"required"`
 }

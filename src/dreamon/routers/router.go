@@ -19,6 +19,7 @@ func InitRouter() http.Handler {
 	{
 		v1.POST("/login", controllers.LoginHandler)
 		v1.POST("/register", controllers.RegisterHandler)
+		v1.POST("/unsubscribe", controllers.RemoveUserHandler)
 	}
 	fmt.Println("[Plugin Router Profile]...")
 	return router

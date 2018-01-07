@@ -19,6 +19,8 @@ func init() {
 		// }
 	}
 }
+
+//添加
 func AddUser(name string, mail string, password string) bool {
 	user := mysql.User{
 		Name:     name,
@@ -36,8 +38,15 @@ func AddUser(name string, mail string, password string) bool {
 	return false
 }
 
+//获取
 func GetUser(mail string, password string) *mysql.User {
 	var user mysql.User
 	db.Where(&mysql.User{Email: mail, Password: password}).First(&user)
 	return &user
+}
+
+//软删除
+func RemoveUser(user *mysql.User) bool {
+	result := db.Model(&user).Update(mysql.User{IsDeleted: true})
+	return result.RowsAffected == 1
 }
