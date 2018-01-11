@@ -24,7 +24,8 @@ func InitRouter() http.Handler {
 
 	v2 := router.Group("/wish")
 	{
-		v2.POST("/add", controllers.AddWishHandler)
+		v2.POST("/addWish", controllers.AddWishHandler)
+		v2.POST("/getWish", controllers.GetWishHander)
 	}
 	fmt.Println("[Plugin Router Profile]...")
 	return router

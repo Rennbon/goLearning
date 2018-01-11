@@ -2,11 +2,10 @@ package business
 
 import (
 	"dreamon/dbBase"
-
 	"dreamon/models/mongo"
 	"time"
 
-	"gopkg.in/mgo.v2"
+	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -21,7 +20,9 @@ func initCollection() (*mgo.Session, *mgo.Collection) {
 func (WishService) GetWish(id string) (result *mongo.Wish) {
 	conn, col := initCollection()
 	defer conn.Close()
-	col.FindId(bson.ObjectIdHex(id)).One(&result)
+	if bson.IsObjectIdHex(id) {
+		col.FindId(bson.ObjectIdHex(id)).One(&result)
+	}
 	return
 }
 
@@ -29,6 +30,7 @@ func (WishService) AddWish(title string, wish string) (result *mongo.Wish) {
 	conn, col := initCollection()
 	defer conn.Close()
 	model := &mongo.Wish{
+		Id:         bson.NewObjectId(),
 		Title:      title,
 		Wish:       wish,
 		CreateTime: time.Now().UTC(),
@@ -38,8 +40,16 @@ func (WishService) AddWish(title string, wish string) (result *mongo.Wish) {
 	err := col.Insert(model)
 	if err != nil {
 		panic(err)
-	} else {
-		result = model
 	}
+	result = model
+	//以下为用upsert
+	//err := col.Insert(model)
+	// info, err := col.Upsert(nil, model)
+	// if err != nil {
+	// 	panic(err)
+	// } else {
+	// 	model.Id = info.UpsertedId.(bson.ObjectId)
+	// 	result = model
+	// }
 	return
 }

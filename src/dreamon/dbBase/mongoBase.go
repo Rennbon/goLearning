@@ -23,6 +23,7 @@ func loadGlobalSession() error {
 	if err != nil {
 		panic(err)
 	}
+	session.SetMode(mgo.Monotonic, true)
 	GlobalSession = session
 	return nil
 }
