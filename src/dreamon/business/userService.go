@@ -1,7 +1,7 @@
 package business
 
 import (
-	"dreamon/config"
+	"dreamon/dbBase"
 	"dreamon/models/mysql"
 
 	"github.com/jinzhu/gorm"
@@ -10,7 +10,7 @@ import (
 var db *gorm.DB
 
 func init() {
-	dbTemp, _ := config.OpenConnection()
+	dbTemp, _ := dbBase.OpenConnection()
 	if dbTemp != nil {
 		db = dbTemp
 		//先这样创建

@@ -21,6 +21,11 @@ func InitRouter() http.Handler {
 		v1.POST("/register", controllers.RegisterHandler)
 		v1.POST("/unsubscribe", controllers.RemoveUserHandler)
 	}
+
+	v2 := router.Group("/wish")
+	{
+		v2.POST("/add", controllers.AddWishHandler)
+	}
 	fmt.Println("[Plugin Router Profile]...")
 	return router
 }
