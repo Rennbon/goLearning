@@ -13,11 +13,13 @@ var (
 func init() {
 	loadGlobalSession()
 }
+
 func loadGlobalSession() error {
+
 	mongoDBInfo := &mgo.DialInfo{
-		Addrs:     []string{"0.0.0.0:32768"},
-		Timeout:   60 * time.Second,
-		PoolLimit: 200,
+		Addrs:     []string{C.MongoDB.Addr},
+		Timeout:   C.MongoDB.Timeout * time.Second,
+		PoolLimit: C.MongoDB.PoolLimit,
 	}
 	session, err := mgo.DialWithInfo(mongoDBInfo)
 	if err != nil {

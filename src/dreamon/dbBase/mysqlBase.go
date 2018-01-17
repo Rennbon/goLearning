@@ -9,7 +9,8 @@ import (
 )
 
 func OpenConnection() (*gorm.DB, error) {
-	db, err := gorm.Open("mysql", "root:qwe123456@/godb?charset=utf8&parseTime=True")
+	//db, err := gorm.Open("mysql", "root:qwe123456@/godb?charset=utf8&parseTime=True")
+	db, err := gorm.Open("mysql", C.Mysql.Link)
 	//defer db.Close()
 	if err != nil {
 		return nil, fmt.Errorf("fatal error config file: %s ", err)

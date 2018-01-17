@@ -1,4 +1,4 @@
-package main
+package dbBase
 
 import (
 	"dreamon/config"
@@ -14,10 +14,12 @@ type configuration struct {
 	MongoDB config.MongoDBConfig
 }
 
+var C configuration
+
 func init() {
-	viper.SetConfigName("dbconfig")
+	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath("./config/")
+	viper.AddConfigPath("./src/dreamon/dbBase")
 
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {
@@ -30,7 +32,7 @@ func init() {
 		log.Fatalf("Error reading config file, %s", err)
 	}
 	fmt.Print(viper.Get("mongo.addr"))
-	var C configuration
+
 	err := viper.Unmarshal(&C)
 	if err != nil {
 		log.Fatalf("unable to decode into struct, %v", err)

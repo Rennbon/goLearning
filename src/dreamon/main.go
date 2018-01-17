@@ -10,7 +10,6 @@ import (
 )
 
 func main() {
-
 	fmt.Println("[Server Starting]...")
 	gin.SetMode(gin.ReleaseMode)
 	router := routers.InitRouter()

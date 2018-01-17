@@ -3,8 +3,6 @@ mysql:
 
 mongodb:
   addr: "0.0.0.0:32768"
-  timeout: 70
+  timeout: 90
   poolLimit: 200
   dbName1: "dreamon"
-
-
