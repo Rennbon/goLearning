@@ -2,10 +2,12 @@ package routers
 
 import (
 	"dreamon/controllers"
+	"dreamon/controllers/msg_struct"
 	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 func InitRouter() http.Handler {
@@ -14,6 +16,13 @@ func InitRouter() http.Handler {
 
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+	v0 := router.Group("/test")
+	{
+		v0.GET("viper", func(c *gin.Context) {
+			c.JSON(http.StatusOK,
+				msg_struct.NewMsg(msg_struct.Success, "OK", viper.Get("mongodb.timeout")))
+		})
+	}
 
 	v1 := router.Group("/user")
 	{

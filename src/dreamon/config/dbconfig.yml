@@ -1,0 +1,10 @@
+mysql:  
+  link: root:qwe123456@/godb?charset=utf8&parseTime=True
+
+mongodb:
+  addr: "0.0.0.0:32768"
+  timeout: 70
+  poolLimit: 200
+  dbName1: "dreamon"
+
+
