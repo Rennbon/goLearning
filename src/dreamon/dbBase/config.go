@@ -19,7 +19,8 @@ var C configuration
 func init() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath("./src/dreamon/dbBase")
+	//viper.AddConfigPath("./src/dreamon/dbBase")
+	viper.AddConfigPath("./dbBase")
 
 	viper.WatchConfig()
 	viper.OnConfigChange(func(e fsnotify.Event) {

@@ -1,10 +1,12 @@
 version: '3'
 
 services:
-  dbmysql:
-    image: mysql:latest 
-    container_name: go-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: qwe123456
+  weba:
+    image: folder:latest  
+    build: .
+    container_name: docker-weba-container   
     ports:
-      - "3306:3306" 
+      - "20001:80" 
+    expose:
+      - "80"
+
